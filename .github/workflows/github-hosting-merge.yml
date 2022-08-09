@@ -1,0 +1,32 @@
+name: Deploy to Github Pages Hosting on merge
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Flutter のインストール
+      - name: Install Flutter
+        run: git clone https://github.com/flutter/flutter.git
+
+      # PATHを通す
+      - name: Add path
+        run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
+
+      # パッケージを取得
+      - name: Download Flutter packages
+        run: flutter pub get
+
+      # ビルド
+      - run: flutter build web --web-renderer canvaskit
+
+      - uses: bluefireteam/flutter-gh-pages@v7
+        with:
+          baseHref: /flutter-game-test/
+          webRenderer: canvaskit
