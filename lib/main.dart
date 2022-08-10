@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flame/game.dart';
 
-import 'package:flame_game/game/game_page.dart';
+import 'game/game_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,15 +47,5 @@ class StartGame extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class GameStartWidget extends StatelessWidget {
-  const GameStartWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final game = GameClass();
-    return GameWidget(game: game);
   }
 }
