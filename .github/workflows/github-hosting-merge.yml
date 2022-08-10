@@ -19,13 +19,7 @@ jobs:
       - name: Add path
         run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
 
-      # パッケージを取得
-      - name: Download Flutter packages
-        run: flutter pub get
-
-      # ビルド
-      - run: flutter build web --web-renderer canvaskit
-
+      # パッケージを取得し、Web版をビルドして、Github Pageにデプロイ
       - uses: bluefireteam/flutter-gh-pages@v7
         with:
           baseHref: /flutter-game-test/
