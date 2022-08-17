@@ -1,6 +1,9 @@
-import 'package:flame/game.dart';
-import 'package:flame_svg/flame_svg.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flame/effects.dart';
+import 'package:flame/game.dart';
+
+import 'package:flame_game/game/component/trump.dart';
 
 import 'widget/button_component.dart';
 
@@ -20,7 +23,17 @@ class GameStartWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ButtonComponent(
-                onPressed: () => {},
+                onPressed: () => {
+                  game.trump.add(
+                    MoveEffect.by(
+                      Vector2(10, 10),
+                      EffectController(
+                        duration: 0.5,
+                        curve: Curves.easeInOutSine,
+                      ),
+                    ),
+                  ),
+                },
                 buttonText: 'Fold',
               ),
               ButtonComponent(
@@ -39,20 +52,13 @@ class GameStartWidget extends StatelessWidget {
   }
 }
 
-class GameClass with Game {
-  late Svg trumpImageInstance;
+class GameClass extends FlameGame {
+  late Trump trump;
 
   @override
   Future<void> onLoad() async {
-    trumpImageInstance = await loadSvg('images/spade_4.svg');
+    // SVG画像を読み込み
+    trump = Trump(positionIn: Vector2(100, 100), kind: TrumpKind.spade, no: 4);
+    add(trump);
   }
-
-  @override
-  void render(Canvas canvas) {
-    trumpImageInstance.renderPosition(
-        canvas, Vector2(100, 100), Vector2.all(300));
-  }
-
-  @override
-  void update(double dt) {}
 }
