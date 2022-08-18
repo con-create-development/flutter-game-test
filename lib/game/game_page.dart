@@ -37,7 +37,7 @@ class GameStartWidget extends StatelessWidget {
                 buttonText: 'Fold',
               ),
               ButtonComponent(
-                onPressed: () => {},
+                onPressed: () => game.trump.reverseCard(),
                 buttonText: 'Check',
               ),
               ButtonComponent(
@@ -58,7 +58,12 @@ class GameClass extends FlameGame {
   @override
   Future<void> onLoad() async {
     // SVG画像を読み込み
-    trump = Trump(positionIn: Vector2(100, 100), kind: TrumpKind.spade, no: 4);
+    trump = Trump(
+      positionIn: Vector2(100, 100),
+      kind: TrumpKind.spade,
+      no: 4,
+      reverse: false,
+    );
     add(trump);
   }
 }
